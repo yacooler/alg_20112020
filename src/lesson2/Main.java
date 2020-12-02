@@ -5,8 +5,8 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        int ARRAY_SIZE = 1_000_000;
-        int TESTS_COUNT = 1;
+        int ARRAY_SIZE = 500_000;
+        int TESTS_COUNT = 100;
 
         Random random = new Random();
         MyArrayList<Integer> mal = new MyArrayList<>();
