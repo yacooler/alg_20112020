@@ -25,19 +25,32 @@ public class MyLinkedList<T> implements Iterable<T> {
     }
 
     private class Iter implements Iterator<T> {
-        Node current = new Node(null, first);
+        Node current;
+        Node next;
+
+        public Iter(){
+            Node current = new Node(null, first);
+            if (current.getNext() != null) next = current.getNext();
+        }
 
         @Override
         public boolean hasNext() {
-            return current.getNext() != null;
+            return next != null;
         }
 
         @Override
         public T next() {
-            current = current.getNext();
+            current = next;
+            next = current.getNext();
             return current.getValue();
         }
 
+        @Override
+        public void remove() {
+            if (current == null) throw new IllegalStateException();
+            MyLinkedList.this.remove(current);
+            current = null;
+        }
     }
 
     private class Node {
@@ -245,6 +258,31 @@ public class MyLinkedList<T> implements Iterable<T> {
         size--;
         return true;
     }
+
+    private boolean remove(Node node){
+        if (isEmpty()) return false;
+
+        if (first.equals(node)){
+            removeFirst();
+        } else if(last.equals(node)){
+            removeLast();
+        }
+
+        Node current = first;
+
+        while (current != null && !current.equals(node)){
+            current = current.getNext();
+        }
+
+        if (current == null) return false;
+
+        current.getPrev().setNext(current.getNext());
+        current.getNext().setPrev(current.getPrev());
+        size--;
+        return true;
+
+    }
+
 
     @Override
     public String toString() {

@@ -1,13 +1,23 @@
 package lesson4;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
+
         MyLinkedList<String> mll = new MyLinkedList<>();
         mll.insertFirst("Maria");
         mll.insertFirst("Katya");
         mll.insertFirst("Luba");
+
+        Iterator<String> iterator = mll.iterator();
+        iterator.next(); //встаем на Марию
+        iterator.remove(); //и удаляем её
+        //iterator.remove(); //java.lang.IllegalStateException, сперва надо перейти к след. элементу!
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+
 
 //        for (int i = 0; i < 3; i++) {
 //            System.out.println(mll.removeFirst());
@@ -35,13 +45,14 @@ public class Main {
 //            System.out.println(s);
 //        }
 
-        MyQueue<String> mq = new MyQueue<>();
-        mq.enqueue("qwe");
-        mq.enqueue("asd");
-        mq.enqueue("zxc");
+//        MyQueue<String> mq = new MyQueue<>();
+//        mq.enqueue("qwe");
+//        mq.enqueue("asd");
+//        mq.enqueue("zxc");
+//
+//        for (int i = 0; i < 3; i++) {
+//            System.out.println(mq.dequeue());
+//        }
 
-        for (int i = 0; i < 3; i++) {
-            System.out.println(mq.dequeue());
-        }
     }
 }
