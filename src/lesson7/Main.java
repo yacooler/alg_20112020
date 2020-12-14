@@ -1,23 +1,28 @@
 package lesson7;
 
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
-        Graph graph = new Graph(5);
-        graph.addEdge(1,2);
-        graph.addEdge(0,4);
-        graph.addEdge(1,4);
-        graph.addEdge(1,0);
+        int CNT = 10;
+        int EDGES = 2;
+        int vertex;
+        Random random = new Random();
 
-//        System.out.println(graph.getAdjList(1));
+        Graph graph = new Graph(CNT);
+        for (int i = 0; i < CNT; i++) {
+            for (int j = 0; j < EDGES; j++) {
+                vertex = random.nextInt(CNT);
+                if (!graph.edgeExists(i, vertex)) graph.addEdge(i, vertex);
+            }
+        }
 
-//        DepthFirstPaths dfp = new DepthFirstPaths(graph, 2);
-//        System.out.println(dfp.hasPathTo(0));
-//        System.out.println(dfp.pathTo(0));
+        System.out.println(graph);
 
 
-        BreadthFirstPaths bfp = new BreadthFirstPaths(graph, 2);
-        System.out.println(bfp.hasPathTo(0));
-        System.out.println(bfp.pathTo(0));
+        BreadthFirstPaths bfp = new BreadthFirstPaths(graph, 0);
+        System.out.println(bfp.hasPathTo(9));
+        System.out.println(bfp.pathTo(9));
 
     }
 }
