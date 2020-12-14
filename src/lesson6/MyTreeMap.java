@@ -1,5 +1,6 @@
 package lesson6;
 
+import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public class MyTreeMap<Key extends Comparable<Key>, Value> {
@@ -70,6 +71,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         if (key == null) {
             throw new IllegalArgumentException("Key shouldn't be null");
         }
+       
     }
 
     public boolean contains(Key key) {
