@@ -2,25 +2,20 @@ package lesson7;
 
 import java.util.LinkedList;
 
-public class BreadthFirstPaths {
-    private boolean[] marked;
-    private int[] edgeTo;
-    private int source;
+public class BreadthFirstPaths extends GraphPaths{
 
-    public BreadthFirstPaths(Graph g, int source) {
-        this.source = source;
-        edgeTo = new int[g.getVertexCount()];
-        marked = new boolean[g.getVertexCount()];
-        bfs(g, source);
+    public BreadthFirstPaths(Graph graph, int startVertex) {
+        super(graph, startVertex);
     }
 
-    private void bfs(Graph g, int source) {
+    @Override
+    protected void calc(int currentVertex) {
         LinkedList<Integer> queue = new LinkedList<>();
-        queue.addLast(source);
-        marked[source] = true;
+        queue.addLast(currentVertex);
+        marked[currentVertex] = true;
         while (!queue.isEmpty()) {
             int vertex = queue.removeFirst();
-            for (int w : g.getAdjList(vertex)) {
+            for (int w : graph.getAdjList(vertex)) {
                 if (!marked[w]) {
                     marked[w] = true;
                     edgeTo[w] = vertex;
@@ -28,24 +23,6 @@ public class BreadthFirstPaths {
                 }
             }
         }
-    }
-
-
-    public boolean hasPathTo(int dist) {
-        return marked[dist];
-    }
-
-    public LinkedList<Integer> pathTo(int dist) {
-        if (!hasPathTo(dist)) {
-            return null;
-        }
-        LinkedList<Integer> stack = new LinkedList<>();
-        int vertex = dist;
-        while (vertex != source) {
-            stack.push(vertex);
-            vertex = edgeTo[vertex];
-        }
-        return stack;
     }
 
 }
