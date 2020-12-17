@@ -1,5 +1,6 @@
 package lesson8;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ChainingHashMap<Key, Value> {
@@ -9,8 +10,16 @@ public class ChainingHashMap<Key, Value> {
     private LinkedList<Node>[] st;
 
     public ChainingHashMap() {
-        st = new LinkedList[capacity];
-        for (int i = 0; i < capacity; i++) {
+        st = new LinkedList[this.capacity];
+        for (int i = 0; i < this.capacity; i++) {
+            st[i] = new LinkedList<>();
+        }
+    }
+
+    public ChainingHashMap(int capacity) {
+        this.capacity = capacity;
+        st = new LinkedList[this.capacity];
+        for (int i = 0; i < this.capacity; i++) {
             st[i] = new LinkedList<>();
         }
     }
@@ -71,12 +80,31 @@ public class ChainingHashMap<Key, Value> {
         return null;
     }
 
+    public Value remove(Key key){
+        checkKeyNotNull(key);
+
+        Iterator<Node> iterator = st[hash(key)].iterator();
+        Node node;
+        while (iterator.hasNext()){
+            node = iterator.next();
+            if (node.key.equals(key)){
+                iterator.remove();
+                size--;
+                return node.value;
+            }
+        }
+
+        return null;
+    }
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < capacity; i++) {
+            sb.append("Chain [").append(i).append("] ");
             for (Node node : st[i]) {
-                sb.append(node.key).append(" ");
+                sb.append(node.key).append("=").append(node.value).append(";");
             }
             sb.append(System.lineSeparator());
         }
